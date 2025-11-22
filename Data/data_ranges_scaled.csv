@@ -1,0 +1,25 @@
+Metric,Min,Max,Scaled Min,Scaled Max
+Glucose,70.0,140.0,0,1
+Cholesterol,125.0,200.0,0,1
+Hemoglobin,13.5,17.5,0,1
+Platelets,150000.0,450000.0,0,1
+White Blood Cells,4000.0,11000.0,0,1
+Red Blood Cells,4.2,5.4,0,1
+Hematocrit,38.0,52.0,0,1
+Mean Corpuscular Volume,80.0,100.0,0,1
+Mean Corpuscular Hemoglobin,27.0,33.0,0,1
+Mean Corpuscular Hemoglobin Concentration,32.0,36.0,0,1
+Insulin,5.0,25.0,0,1
+BMI,18.5,24.9,0,1
+Systolic Blood Pressure,90.0,120.0,0,1
+Diastolic Blood Pressure,60.0,80.0,0,1
+Triglycerides,50.0,150.0,0,1
+HbA1c,4.0,6.0,0,1
+LDL Cholesterol,70.0,130.0,0,1
+HDL Cholesterol,40.0,60.0,0,1
+ALT,10.0,40.0,0,1
+AST,10.0,40.0,0,1
+Heart Rate,60.0,100.0,0,1
+Creatinine,0.6,1.2,0,1
+Troponin,0.0,0.04,0,1
+C-reactive Protein,3.0,3.0,0,1
