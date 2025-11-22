@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disease Predictor</title>
+</head>
+<body>
+
+<h2>Disease Predictor</h2>
+
+<input id="values" placeholder="Enter 24 values comma separated">
+<button onclick="predict()">Predict</button>
+
+<p id="result"></p>
+
+<script>
+async function predict() {
+    let raw = document.getElementById("values").value;
+    let arr = raw.split(",").map(Number);
+
+    let res = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({features: arr})
+    });
+
+    let data = await res.json();
+    document.getElementById("result").innerText = 
+        "Prediction: " + data.prediction;
+}
+</script>
+
+</body>
+</html>
