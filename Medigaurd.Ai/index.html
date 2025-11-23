@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mediguard AI-Powered Health Assessment</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="mediguard-header">
+      <div class="brand">
+        <img src="logo.png" alt="Mediguard Logo" class="brand-logo" />
+        <h1 class="brand-title">Mediguard</h1>
+        <p class="brand-tagline">AI-Powered Health Assistant</p>
+      </div>
+      <nav>
+        <a href="#" onclick="loadPage('home')">Home</a>
+        <a href="#" onclick="loadPage('team')">Team</a>
+        <a href="#" onclick="loadPage('about')">About Us</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="page" style="display:block;">
+        <div class="info-box">
+          <h3>Comprehensive Health Assessment</h3>
+          <p>Advanced AI-powered analysis of lab results to detect potential health conditions.</p>
+          <ul>
+            <li>24 Health Parameters</li>
+            <li>AI-Powered Detection</li>
+            <li>Actionable Insights</li>
+            <li>Instant Results</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h3>What You'll Need:</h3>
+          <ul>
+            <li>Recent blood test results from your healthcare provider</li>
+            <li>Precise values for 24 health parameters</li>
+            <li>5–10 minutes to complete the assessment form</li>
+          </ul>
+        </div>
+        <button onclick="loadPage('assessment')">Start Assessment</button>
+      </section>
+
+      <section id="team" class="page" style="display:none;">
+        <div class="info-box">
+          <h2>Our Team</h2>
+          <p>Meet the experts behind Mediguard’s AI-powered health assessments.</p>
+          <div class="team-member"><strong>Sai Tukrul</strong><br>BS - AI & DS<br>IIT Jodhpur</div>
+          <div class="team-member"><strong>Saloni Gurav</strong><br>BTech - IT<br>UMIT</div>
+          <div class="team-member"><strong>Priyanka Jadhav</strong><br>BTech - DS<br>UMIT</div>
+        </div>
+      </section>
+
+      <section id="about" class="page" style="display:none;">
+        <div class="info-box">
+          <h2>About MediGuard AI</h2>
+          <p>Empowering individuals with AI-driven health insights to make informed decisions about their wellbeing.</p>
+        </div>
+        <div class="info-box">
+          <h3>Our Values</h3>
+          <ul>
+            <li><strong>Privacy & Security:</strong> Your health data is encrypted and protected.</li>
+            <li><strong>Accuracy & Precision:</strong> Our AI models are highly reliable.</li>
+            <li><strong>Patient-Centered:</strong> We make medical info accessible.</li>
+            <li><strong>Innovation:</strong> We constantly improve our algorithms.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="assessment" class="page" style="display:none;">
+        <h2>Health Assessment Form</h2>
+        <p>Please enter precise values as per your laboratory results. All 24 fields are required.</p>
+        <form id="inputs" onsubmit="event.preventDefault(); submitAndRedirect();">
+          <div class="grid">
+            <!-- Inputs val1 to val24 -->
+            <input id="val1" name="val1" placeholder="Glucose" required>
+            <input id="val2" name="val2" placeholder="Cholesterol" required>
+            <input id="val3" name="val3" placeholder="Hemoglobin" required>
+            <input id="val4" name="val4" placeholder="Platelets" required>
+            <input id="val5" name="val5" placeholder="White Blood Cells" required>
+            <input id="val6" name="val6" placeholder="Red Blood Cells" required>
+            <input id="val7" name="val7" placeholder="Hematocrit" required>
+            <input id="val8" name="val8" placeholder="Mean Corpuscular Volume" required>
+            <input id="val9" name="val9" placeholder="Mean Corpuscular Hemoglobin" required>
+            <input id="val10" name="val10" placeholder="Mean Corpuscular Hemoglobin Concentration" required>
+            <input id="val11" name="val11" placeholder="Insulin" required>
+            <input id="val12" name="val12" placeholder="BMI" required>
+            <input id="val13" name="val13" placeholder="Systolic Blood Pressure" required>
+            <input id="val14" name="val14" placeholder="Diastolic Blood Pressure" required>
+            <input id="val15" name="val15" placeholder="Triglycerides" required>
+            <input id="val16" name="val16" placeholder="HbA1c" required>
+            <input id="val17" name="val17" placeholder="LDL Cholesterol" required>
+            <input id="val18" name="val18" placeholder="HDL Cholesterol" required>
+            <input id="val19" name="val19" placeholder="ALT" required>
+            <input id="val20" name="val20" placeholder="AST" required>
+            <input id="val21" name="val21" placeholder="Heart Rate" required>
+            <input id="val22" name="val22" placeholder="Creatinine" required>
+            <input id="val23" name="val23" placeholder="Troponin" required>
+            <input id="val24" name="val24" placeholder="C-reactive Protein" required>
+          </div>
+          <button type="submit">Submit for Analysis</button>
+        </form>
+
+        <div id="result-container" class="result-box" style="display:none;">
+          <h3>Prediction Result</h3>
+          <p id="predicted-disease"></p>
+          <div id="probability-list"></div>
+          <canvas id="result-chart" width="400" height="300"></canvas>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <p>© 2025 MediGuard AI. All rights reserved.</p>
+        <p>Contact: info@mediguardai.com</p>
+        <div class="footer-disclaimer">
+          <p>This tool provides informational analysis only and is not a substitute for professional medical advice.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function loadPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+      document.getElementById(pageId).style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function submitAndRedirect() {
+      let arr = [];
+      for (let i = 1; i <= 24; i++) {
+        arr.push(Number(document.getElementById("val" + i).value));
+      }
+
+      let res = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ features: arr })
+      });
+
+      let data = await res.json();
+      document.getElementById("result-container").style.display = "block";
+      document.getElementById("predicted-disease").innerText = "Predicted Disease: " + data.prediction;
+
+      let probList = "";
+      for (let [key, value] of Object.entries(data.probabilities)) {
+        probList += `<p><strong>${key}:</strong> ${value}%</p>`;
+      }
+      document.getElementById("probability-list").innerHTML = probList;
+
+      const ctx = document.getElementById('result-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(data.probabilities),
+          datasets: [{
+            label: 'Probability (%)',
+            data: Object.values(data.probabilities),
+            backgroundColor: '#0077cc'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Condition Probabilities'
+            }
+          },
+          scales: {
+            y: { beginAtZero: true, max: 100 }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
